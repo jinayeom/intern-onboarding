@@ -1,2 +1,22 @@
-{% load static %}
-<link rel="stylesheet" href="{% static 'polls/style.css' %}"
+{% extends "base.html" %}
+
+{% block title %}All Roadmaps | CE Intern Onboarding Bootcamp{% endblock %}
+
+{% block content %}
+<section class="container">
+  <h2>Available Learning Roadmaps</h2>
+  <p>Select a roadmap to explore its topics and dependencies.</p>
+
+  <ul style="list-style:none; padding:0;">
+    {% for r in roadmaps %}
+      <li style="margin-bottom:12px;">
+        <a href="{% url 'roadmap:detail' slug=r.slug %}" class="btn-card">
+          {{ r.title }}
+        </a>
+      </li>
+    {% empty %}
+      <p>No roadmaps found yet.</p>
+    {% endfor %}
+  </ul>
+</section>
+{% endblock %}

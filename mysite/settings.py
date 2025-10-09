@@ -39,9 +39,12 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "core",
     "roadmap",
+    "rest_framework", # allows Django to serve JSON 
+    "corsheaders", # fixes cross-site access (React <-> Django)
 ]
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware", # must come near the top 
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -49,6 +52,10 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+]
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",  # React dev server
 ]
 
 ROOT_URLCONF = "mysite.urls"

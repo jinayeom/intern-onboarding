@@ -1,6 +1,14 @@
 import json
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Roadmap, Node
+
+def roadmap_index(request):
+    """List all roadmaps (or redirect if you only have one)."""
+    roadmaps = Roadmap.objects.all().order_by("title")
+    if roadmaps.count() == 1:
+        # optional: auto-jump to the only roadmap
+        return redirect("roadmap:detail", slug=roadmaps.first().slug)
+    return render(request, "roadmap/index.html", {"roadmaps": roadmaps})
 
 def roadmap_detail(request, slug: str):
     roadmap = get_object_or_404(Roadmap, slug=slug)

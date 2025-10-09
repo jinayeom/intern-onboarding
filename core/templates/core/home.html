@@ -4,23 +4,51 @@
 
 {% block content %}
 <section class="hero">
-    <h2>Welcome to the Cloud Engineering Intern Onboarding Bootcamp</h2>
-    <p>
-        This platform was designed by an intern to help new Cloud Engineering interns 
-        get up to speed quickly with devops topics, basic infrastructure, SAP BTP, internal tools, 
-        and other essential onboarding resources.
+  <div class="hero-inner">
+    <h2 class="hero-title">Welcome to the Cloud Engineering Intern Onboarding Bootcamp</h2>
+    <p class="hero-text">
+      This platform was designed by an intern to help new Cloud Engineering interns
+      get up to speed quickly with Networking Protocols, DevOps topics, basic Cloud Infrastructure,
+      and other essential onboarding resources.
     </p>
 
-    <a href="#" class="btn-primary">Get Started</a>
+    <div class="hero-cta">
+      <a href="#" class="btn-primary">Get Started</a>
+      <a href="{% url 'roadmap:index' %}" class="btn-secondary">View Roadmaps</a>
+    </div>
+  </div>
 </section>
 
 <section class="overview">
-    <h3>What You'll Learn</h3>
-    <ul>
-        <li> DevOps and Infrastructure Topics</li>
-        <li> Shell Scripting (eg Bash) </li>
-        <li> Python and Django </li>
-        <li> Understanding Internal Tools and Workflows </li>
-    </ul>
+  <h3>What You'll Learn</h3>
+  <ul class="overview-list">
+    <li>DevOps and Infrastructure Topics</li>
+    <li>Shell Scripting (e.g., Bash)</li>
+    <li>Python and Django</li>
+    <li>Understanding Internal Tools and Workflows</li>
+  </ul>
+</section>
+
+<!-- Module Buttons -->
+<section class="learning-paths">
+  <h3>Explore Learning Paths</h3>
+  <div class="button-grid">
+    <a href="#" class="btn-card">
+      <span class="btn-card-title">Operating Systems Fundamentals</span>
+      <span class="btn-card-sub">Kernel • Shell • CLI</span>
+    </a>
+    <a href="#" class="btn-card">
+      <span class="btn-card-title">Networking Protocols</span>
+      <span class="btn-card-sub">TCP/IP • HTTP • DNS</span>
+    </a>
+    <a href="#" class="btn-card">
+      <span class="btn-card-title">Web Development</span>
+      <span class="btn-card-sub">Django • React • APIs</span>
+    </a>
+    <a href="#" class="btn-card">
+      <span class="btn-card-title">DevOps & Cloud Infrastructure</span>
+      <span class="btn-card-sub">CI/CD • Docker • Cloud</span>
+    </a>
+  </div>
 </section>
 {% endblock %}

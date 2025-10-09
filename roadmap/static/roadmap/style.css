@@ -1,3 +1,16 @@
-li a {
-    color:green; 
-}
+{
+    selector: 'node.link',
+    style: {
+      'border-color': '#0EA5E9',
+      'border-width': 3,
+      'background-color': '#E0F2FE'
+    }
+  },
+  {
+    selector: 'node.hovered',
+    style: {
+      'shadow-blur': 16,
+      'shadow-opacity': 0.9
+    }
+  },
+  

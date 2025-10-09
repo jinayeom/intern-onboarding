@@ -18,95 +18,64 @@
 <div id="err"></div>
 
 {# Safely embed the graph data from the view #}
-{{ elements_json|json_script:"elements-data" }}
+{{ elements|json_script:"elements-data" }}
 
+<!-- Load Cytoscape -->
 <script src="https://unpkg.com/cytoscape@3.27.0/dist/cytoscape.min.js"></script>
+
 <script>
-  const errEl = document.getElementById("err");
-  const dbgEl = document.getElementById("dbg");
+  const raw = document.getElementById("elements-data").textContent || "[]";
+  const elements = JSON.parse(raw);
 
-  try {
-    if (!window.cytoscape) {
-      errEl.textContent = "Cytoscape failed to load (CDN blocked?).";
-    }
-
-    // Parse elements passed from the view
-    let elements = JSON.parse(document.getElementById("elements-data").textContent || "[]");
-
-    // Fallback so you still see something if DB is empty
-    if (!Array.isArray(elements) || elements.length === 0) {
-      elements = [
-        { data: { id: "A", label: "DevOps" } },
-        { data: { id: "B", label: "Learn a Programming Language" } },
-        { data: { id: "C", label: "Python" } },
-        { data: { source: "A", target: "B" } },
-        { data: { source: "B", target: "C" } },
-      ];
-    }
-
-    // Init graph with a built-in layout
+  if (!elements.length) {
+    document.getElementById("cy").style.display = "none";
+    document.getElementById("err").textContent = "Under construction — no nodes yet for this roadmap.";
+  } else {
     const cy = cytoscape({
       container: document.getElementById('cy'),
       elements,
-      layout: { name: 'breadthfirst', directed: true, padding: 30, spacingFactor: 1.2 },
-      wheelSensitivity: 0.2,
+      layout: {
+        name: 'cose',
+        animate: true,
+        padding: 40,
+        nodeRepulsion: 9000,
+        idealEdgeLength: 140
+      },
       style: [
         {
           selector: 'node',
           style: {
             'shape': 'round-rectangle',
-            'background-color': '#fff7cc',
-            'border-color': '#b59b00',
+            'background-color': '#E3F2FD',
+            'border-color': '#2196F3',
             'border-width': 2,
             'label': 'data(label)',
+            'color': '#0b1220',
+            'font-size': 16,
+            'font-weight': '600',
             'text-valign': 'center',
             'text-halign': 'center',
-            'font-size': 12,
-            'padding': '10px',
-            'width': 160,
-            'height': 40
+            'width': 180,
+            'height': 60,
+            'shadow-blur': 8,
+            'shadow-color': '#90CAF9',
+            'shadow-opacity': 0.6,
           }
         },
         {
           selector: 'edge',
-          style: { 'line-color': '#9ca3af', 'width': 2, 'curve-style': 'bezier', 'line-style': 'dotted' }
-        },
-        { selector: 'node.optional', style: { 'background-color': '#e9d5ff', 'border-color': '#7c3aed' } },
-        { selector: 'node.hidden', style: { 'display': 'none' } },
-        { selector: 'edge.hidden', style: { 'display': 'none' } }
+          style: {
+            'width': 3,
+            'line-color': '#90CAF9',
+            'target-arrow-color': '#64B5F6',
+            'target-arrow-shape': 'triangle',
+            'curve-style': 'bezier'
+          }
+        }
       ]
     });
 
-    // After render, fit and print client-side counts
-    cy.ready(() => {
-      cy.fit();
-      dbgEl.textContent += ` | client drew ${cy.nodes().length} nodes / ${cy.edges().length} edges`;
-    });
-
-    // Click opens URL if present
-    cy.on('tap', 'node', evt => {
-      const url = evt.target.data('url');
-      if (url) window.open(url, '_blank');
-    });
-
-    // Beginner filter hides optional nodes
-    const btn = document.getElementById('toggle-beginner');
-    let beginner = false;
-    btn.addEventListener('click', () => {
-      beginner = !beginner;
-      btn.textContent = beginner ? 'Show all' : 'Beginner version';
-      cy.batch(() => {
-        cy.nodes('.optional').toggleClass('hidden', beginner);
-        cy.edges().forEach(e => {
-          const hide = e.source().hasClass('hidden') || e.target().hasClass('hidden');
-          e.toggleClass('hidden', beginner && hide);
-        });
-      });
-      cy.layout({ name: 'breadthfirst', directed: true, padding: 30, spacingFactor: 1.2 }).run();
-      cy.fit();
-    });
-  } catch (e) {
-    errEl.textContent = (e && e.stack) ? e.stack : String(e);
+    cy.ready(() => cy.fit());
   }
 </script>
 {% endblock %}

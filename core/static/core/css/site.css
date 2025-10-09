@@ -132,11 +132,10 @@
   
   .btn-card{
     position:relative;
-    display:flex; flex-direction:column; align-items:flex-start; justify-content:center;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; text-align: center;
     gap:.35rem;
     min-height:112px;
     padding:1rem 1.1rem;
-    text-align:left;
     text-decoration:none;
     color:#0b1830;
     background: linear-gradient(180deg, #ffffff, #f7fbff 70%);
@@ -145,6 +144,8 @@
     box-shadow: 0 6px 18px rgba(12,60,120,0.06);
     transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease, background .12s ease;
     overflow:hidden;
+    font-size: 23px;
+    font-weight: 700;
   }
   .btn-card::after{
     content:"";
@@ -171,4 +172,108 @@
   
   /* Utility: container inside base layouts (fallback if not present) */
   .container{ max-width:1080px; margin:0 auto; padding:0 1rem; }
+  
+  /* ====== Meta-like shell styling for header, nav, footer ====== */
+:root{
+    --brand:#0FAAFF;         /* your light blue */
+    --brand-dark:#0b7fbf;
+    --ink:#0b1220;
+    --muted:#54607a;
+    --surface:#ffffff;
+    --bg-soft:#f7fbff;
+    --border:#e8f1f9;
+    --ring: 0 0 0 3px color(from var(--brand) srgb r g b / 0.28);
+  }
+  
+  /* Global container helper (pairs with main content) */
+  .container{ max-width:1080px; margin:0 auto; padding:0 1rem; }
+  
+  /* Skip link for keyboard users */
+  .skip-link{
+    position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden;
+  }
+  .skip-link:focus{
+    position:fixed; left:1rem; top:1rem; width:auto; height:auto; padding:.5rem .75rem;
+    background:#fff; color:#000; border-radius:.5rem; box-shadow:0 0 0 3px rgba(15,170,255,.35);
+    z-index:1000;
+  }
+  
+  /* ===== Header ===== */
+  .site-header{
+    position:sticky; top:0; z-index:50;
+    background:
+      radial-gradient(1200px 400px at 80% -200px, color-mix(in srgb, var(--brand) 12%, #fff 88%), transparent 70%),
+      #ffffff;
+    border-bottom:1px solid var(--border);
+    backdrop-filter: saturate(140%) blur(6px);
+  }
+  .site-header-inner{
+    display:flex; align-items:center; justify-content:space-between;
+    max-width:1080px; margin:0 auto; padding:.85rem 1rem;
+  }
+  
+  .logo{
+    font-size: clamp(1rem, .9rem + .6vw, 1.25rem);
+    margin:0; line-height:1;
+    letter-spacing:.2px; font-weight:800;
+  }
+  .logo a{
+    text-decoration:none; color:var(--ink);
+    background: linear-gradient(90deg, var(--ink), color-mix(in srgb, var(--brand) 50%, var(--ink) 50%));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  
+  /* Nav */
+  .nav{ display:flex; align-items:center; gap:.5rem; }
+  .nav-link{
+    position:relative;
+    display:inline-flex; align-items:center; justify-content:center;
+    padding:.55rem .8rem; border-radius:.6rem;
+    color:#1b2a44; text-decoration:none; font-weight:600;
+    transition: background .12s ease, color .12s ease, transform .12s ease;
+  }
+  .nav-link:hover{
+    background:#eaf6ff; color:var(--brand-dark);
+  }
+  .nav-link:focus{
+    outline:none; box-shadow: var(--ring);
+  }
+  
+  /* Make the current page look active if you want:
+  .nav-link[aria-current="page"] { color:var(--brand-dark); background:#eaf6ff; }
+  */
+  
+  /* ===== Main spacing harmonized with hero from home page ===== */
+  .site-main{ padding-block: 1.25rem 2.5rem; }
+  
+  /* ===== Footer ===== */
+  .site-footer{
+    margin-top: 2rem;
+    background: linear-gradient(180deg, #ffffff, var(--bg-soft) 80%);
+    border-top:1px solid var(--border);
+  }
+  .site-footer-inner{
+    max-width:1080px; margin:0 auto; padding:1rem;
+    display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between;
+    color:#2a364a;
+  }
+  .site-footer p{ margin:.25rem 0; color:#354764; }
+  
+  .footer-nav{
+    display:flex; align-items:center; gap:.5rem; flex-wrap:wrap;
+  }
+  .footer-nav a{
+    color:#3a4a66; text-decoration:none; font-weight:600;
+    padding:.25rem .4rem; border-radius:.4rem;
+  }
+  .footer-nav a:hover{ color:var(--brand-dark); background:#eaf6ff; }
+  .footer-nav a:focus{ outline:none; box-shadow: var(--ring); }
+  
+  /* Small screens */
+  @media (max-width: 640px){
+    .site-header-inner{ padding:.75rem 1rem; }
+    .nav{ gap:.25rem; }
+    .nav-link{ padding:.5rem .65rem; }
+    .site-footer-inner{ gap:.5rem; }
+  }
   

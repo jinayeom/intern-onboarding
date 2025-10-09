@@ -32,23 +32,17 @@
 <!-- Module Buttons -->
 <section class="learning-paths">
   <h3>Explore Learning Paths</h3>
-  <div class="button-grid">
-    <a href="#" class="btn-card">
-      <span class="btn-card-title">Operating Systems Fundamentals</span>
-      <span class="btn-card-sub">Kernel • Shell • CLI</span>
-    </a>
-    <a href="#" class="btn-card">
-      <span class="btn-card-title">Networking Protocols</span>
-      <span class="btn-card-sub">TCP/IP • HTTP • DNS</span>
-    </a>
-    <a href="#" class="btn-card">
-      <span class="btn-card-title">Web Development</span>
-      <span class="btn-card-sub">Django • React • APIs</span>
-    </a>
-    <a href="#" class="btn-card">
-      <span class="btn-card-title">DevOps & Cloud Infrastructure</span>
-      <span class="btn-card-sub">CI/CD • Docker • Cloud</span>
-    </a>
-  </div>
+
+  {% if roadmaps %}
+    <div class="button-grid">
+      {% for r in roadmaps %}
+        <a href="{% url 'roadmap:detail' slug=r.slug %}" class="btn-card">
+          {{ r.title }}
+        </a>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p>No roadmaps yet. <a href="{% url 'roadmap:index' %}">View Roadmaps</a></p>
+  {% endif %}
 </section>
 {% endblock %}

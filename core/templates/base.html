@@ -1,37 +1,48 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-    {% load static %}
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content=""width=device-width, initial-scale="1.0">
-    <title>{% block title %}CE Intern Onboarding Bootcamp{% endblock %}</title>
-    
-    <link rel="stylesheet" href="{% static 'core/css/site.css' %}" />
-
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{% block title %}CE Intern Onboarding Bootcamp{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'core/css/site.css' %}" />
 </head>
 
 <body>
-     <!-- ===== Site Header ===== -->
-    <header class="site-header">
-        <h1 class="logo">CE Intern Onboarding Bootcamp</h1>
-        <nav class="nav">
-            <a href="{% url 'home' %}">Home</a>
-            <a href="{% url 'roadmap:index' %}">Roadmap</a>
-            <a href="#">Modules</a>
-        </nav>
-    </header>
+  <!-- Accessible skip link -->
+  <a class="skip-link" href="#main">Skip to content</a>
 
-    <!-- ===== Main Page Content ===== -->
-    <main class="container">
-        {% block content %}
-        {% endblock %}
-    </main>
+  <!-- ===== Site Header ===== -->
+  <header class="site-header">
+    <div class="site-header-inner">
+      <h1 class="logo">
+        <a href="{% url 'home' %}">CE Intern Onboarding Bootcamp</a>
+      </h1>
+      <nav class="nav" aria-label="Main">
+        <a class="nav-link" href="{% url 'home' %}">Home</a>
+        <a class="nav-link" href="{% url 'roadmap:index' %}">Roadmap</a>
+        <a class="nav-link" href="#">Modules</a>
+      </nav>
+    </div>
+  </header>
 
-    <!-- ===== Site Footer ===== -->
-     <footer class="site-footer">
-        <p>(c) {{ now | date:"Y" }} CE Intern Onboarding Bootcamp. All rights reserverd.</p>
-    </footer>
+  <!-- ===== Main Page Content ===== -->
+  <main id="main" class="container site-main">
+    {% block content %}{% endblock %}
+  </main>
 
+  <!-- ===== Site Footer ===== -->
+  <footer class="site-footer">
+    <div class="site-footer-inner">
+      <p>© {{ now|date:"Y" }} CE Intern Onboarding Bootcamp. All rights reserved.</p>
+      <nav class="footer-nav" aria-label="Footer">
+        <a href="#">Privacy</a>
+        <span aria-hidden="true">•</span>
+        <a href="#">Terms</a>
+        <span aria-hidden="true">•</span>
+        <a href="#">Contact</a>
+      </nav>
+    </div>
+  </footer>
 </body>
 </html>

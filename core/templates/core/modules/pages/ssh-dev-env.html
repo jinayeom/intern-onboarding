@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title%}SSHing into Your Development Environment{% endblock %}
+
+{% block content %}
+<section class="module-detail">
+    <h2 class="module-title">SSHing into Your Development Environment</h2>
+    <p class="body">
+        Working on a remote server (your Vm eg <code class="inline-code">jina-dev</code>) is basically logging into a 
+        remote computer that has a version of the git repo for <code class="inline-code">WebApps</code> installed on its 
+        “hard drive”. When the full-timer set up your VM initially, they set it up so when you are working on this 
+        <code class="inline-code">CE_WebApps</code> folder, <code class="inline-code">git pull / git push</code> are 
+        pulling/pushing to the <code class="inline-code">CE_WebApps</code> repo. You do not have to connect the repo yourself. 
+        This would’ve been done for you when your VM was created. AKA it’s only when you <code class="inline-code">git push</code> 
+        your files to the repo where your code will show up on the shared repo.
+    </p>
+    <p class="body">
+        Follow these steps to securely access your remote development environment via SSH. 
+    </p>
+
+    <ol class="numbered-list">
+        <li class="numbered-list li">
+            Open your IDE (eg VS Code) or terminal application. In this example, I will 
+            assume you are using VS Code. 
+        </li>
+        <li class="numbered-list li">
+            Once inside, connect to your remote VM by selecting the two arrows at the bottom left.
+            Enter your IP address at the top search bar. Press "Enter" to join your dev VM. 
+        </li>
+        <li class="numbered-list li">
+            Once inside, open up your IDE's CLI/Terminal and write the following: <code class="inline-code">laser</code>.
+            Follow it up with <code class="inline-code">code .</code> to open up the folders in the Explorer (left-side panel). 
+            TIP: If you are deep in another folder and you want to re-navigate back to this home directory, 
+            then you can do so by writing this command: <code class="inline-code">laser</code>
+        </li>
+        <li class="numbered-list li">
+            You should have received a development environment link, kind of like your own version of Laser 
+            Sandbox so you can see how your dev changes manifest in the product. Navigate to this website.
+        </li>
+        <li class="numbered-list li">
+            You will be prompted to login. To do so, you will need to create a superuser. Go to your command 
+            linbe and run: <code class="inline-code"> python3 manage.py createsuperuser</code>. Create your own username/password, 
+            but I suggest you use these credentials that everyone uses: <code class="inline-code">username=bestotesto</code> and 
+            <code class="inline-code">password=laserlaser</code>.
+        </li>
+        <li class="numbered-list li"> 
+            Once successfully created, go back to the browser and log in with your account details.
+        </li>
+    </ol>
+    <p class="note">
+        Tip: If you encounter “Permission denied (publickey)” errors, check file permissions on your <code class="inline-code">~/.ssh</code> folder.
+    </p>
+</section>
+{% endblock %}

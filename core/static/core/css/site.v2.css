@@ -30,6 +30,7 @@ body{
   background: radial-gradient(1200px 600px at 80% -10%, color-mix(in srgb, var(--brand) 8%, #fff 92%), #fff);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  font-size: 18px;
 }
 
 /* Utility container (used by layouts) */
@@ -230,4 +231,32 @@ body{
 /* ===== Reduced motion ===== */
 @media (prefers-reduced-motion: reduce){
   .btn-primary, .btn-secondary, .btn-card, .module-card { transition: none; }
+}
+
+/* ===== Inline Code Styling ===== */
+.inline-code {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 0.95rem;
+  background-color: #f4f4f5;        /* light grey background */
+  color: #c62828;                   /* red text for contrast */
+  padding: 0.15rem 0.4rem;
+  border-radius: 6px;
+  border: 1px solid #e0e0e0;
+  white-space: nowrap;
+}
+
+/* ===== Numbered List (module detail pages) ===== */
+ol.numbered-list {
+  /* keep the browser's numbers */
+  list-style: decimal;
+  list-style-position: outside;
+  margin: 1rem 0;
+  padding-left: 1.5rem; /* room for markers */
+  color: var(--ink);
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+ol.numbered-list li {
+  margin-bottom: 0.5rem;
 }

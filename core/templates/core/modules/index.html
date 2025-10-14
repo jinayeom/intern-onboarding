@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Modules{% endblock %}
+
+{% block content %}
+<section class="modules">
+  <h2>Modules</h2>
+  <p class="muted">Browse topics in alphabetical order</p>
+
+  <ul class="module-list">
+    {% for t in topics %}
+      <li><a href="#">{{ t.title }}</a></li>
+    {% empty %}
+      <li>No modules yet</li>
+    {% endfor %}
+  </ul>
+</section>
+{% endblock %}

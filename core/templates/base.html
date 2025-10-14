@@ -5,7 +5,11 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{% block title %}CE Intern Onboarding Bootcamp{% endblock %}</title>
-  <link rel="stylesheet" href="{% static 'core/css/site.css' %}" />
+  <!-- <link rel="stylesheet" href="{% static 'core/css/site.css' %}"> -->
+
+  <!-- Use the following line to replace the above line to force browser
+   to fetch a fresh copy of the CSS file -->
+  <link rel="stylesheet" href="{% static 'core/css/site.css' %}?v={{ now|date:'U' }}">
 </head>
 
 <body>

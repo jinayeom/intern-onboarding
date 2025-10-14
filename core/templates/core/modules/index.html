@@ -6,12 +6,16 @@
   <h2>Modules</h2>
   <p class="muted">Browse topics in alphabetical order</p>
 
-  <ul class="module-list">
+  <ul class="module-grid">
     {% for t in topics %}
       {% if t.slug %}
-        <li><a href="{% url 'module-detail' slug=t.slug %}">{{ t.title }}</a></li>
+        <li>
+          <a class="module-card" href="{% url 'module-detail' slug=t.slug %}">{{ t.title }}</a>
+        </li>
     {% else %}
-      <li>{{ t.title }}</li>
+      <li>
+        <span class="module-card is-disabled">{{ t.title }}</span>
+      </li>
     {% endif %}
   {% empty %}
     <li>No modules yet</li>

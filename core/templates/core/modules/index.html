@@ -8,10 +8,14 @@
 
   <ul class="module-list">
     {% for t in topics %}
-      <li><a href="#">{{ t.title }}</a></li>
-    {% empty %}
-      <li>No modules yet</li>
-    {% endfor %}
+      {% if t.slug %}
+        <li><a href="{% url 'module-detail' slug=t.slug %}">{{ t.title }}</a></li>
+    {% else %}
+      <li>{{ t.title }}</li>
+    {% endif %}
+  {% empty %}
+    <li>No modules yet</li>
+  {% endfor %}
   </ul>
 </section>
 {% endblock %}

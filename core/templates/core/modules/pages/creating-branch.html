@@ -5,7 +5,7 @@
 <section class="module-detail">
     <h2 class="module-title">Creating Your Own Dev Branch</h2>
     <p class="body">
-        Filler text
+        You got your first tivket, and now you have to create your own branch.
     </p>
     <p class="body">
         Follow these steps to create your own dev branch for the repo. 
@@ -13,12 +13,39 @@
 
     <ol class="numbered-list">
         <li class="numbered-list li">
-            Test
+            Ensure <code class="inline-code">git</code> is installed in your VM. 
+            Check by running <code class="inline-code">git</code> in your terminal. 
+            This should show a bunch of commands; this indicates you have git. If not, 
+            you need to download git.
         </li>
-        
+        <li class="numbered-list li">
+            Check to see which branch you are in now. You are probably in the <code class="inline-code">master</code>
+            branch. Run: <code class="inline-code">git branch</code>
+        </li>
+        <li class="numbered-list li">
+            Create a branch for your ticket by following the naming convention. Eg if your ticket name 
+            is CESVAN-1234 and your task is to create Unite Tests for the front-end, name it as follows: 
+            <code class="inline-code">git branch "CESVAN-1234_UTFrontEnd"</code>
+        </li>
+        <li class="numbered-list li">
+            Switch to your newly created branch:
+            <code class="inline-code">git checkout CESVAN-1234_UTFrontEnd</code>
+        </li>
+        <li class="numbered-list li">
+            Double check you are in the correct branch:
+            <code class="inline-code">git branch</code>
+            You should see the <code class="inline-code">*</code> next to the branch you want to be in. 
+        </li>
+        <li class="numbered-list li">
+            Before you change anything, ensure you have the most recent version of the repo: 
+            <code class="inline-code">git status</code>
+            If you are not up to date, then run the following commands: 
+            <code class="inline-code">git checkout master</code> to switch back to the master branch, then
+            <code class="inline-code">git pull</code>.
+        </li>
     </ol>
-    <p class="note">
-        Put any tips here.
+    <p class="note italic">
+        TIP: To compile your code, check out the "How to Compile Your Code" module.
     </p>
 </section>
 {% endblock %}

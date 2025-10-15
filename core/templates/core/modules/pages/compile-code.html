@@ -5,20 +5,27 @@
 <section class="module-detail">
     <h2 class="module-title">Compiling Your Code</h2>
     <p class="body">
-        Filler text
+        In order to compile the changes you made in your code, take a look at the <code class="inline-code">
+        build.sh</code> script. 
+        This script contains the sequential commands that need to be run so you can compile your code. 
     </p>
     <p class="body">
-        Follow these steps to create your own dev branch for the repo. 
+        Follow these steps to actually compile your code: 
     </p>
 
     <ol class="numbered-list">
         <li class="numbered-list li">
-            Test
+            In your terminal, change directory to <code class="inline-code">CE_WebApps</code> directory, not 
+            the <code class="inline-code">CE_WebApps/CE_WebApps</code> folder:
+            <code class="inline-code">cd ..</code>
         </li>
-        
+        <li class="numbered-list li">
+            Run the <code class="inline-code">build.sh</code> script: 
+            <code class="inline-code">./build.sh</code>
+        </li>
+        <li class="numbered-list li">
+            Navigate to your local sandbox browser to confirm the changes have taken effect.
+        </li>
     </ol>
-    <p class="note">
-        Put any tips here.
-    </p>
 </section>
 {% endblock %}

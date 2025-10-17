@@ -96,38 +96,30 @@
     });
     const container = document.getElementById('cy');
     const sidebar = document.getElementById('sidebar');
-    const sbTitle = document.getElementById('sb-title');
-    const sbBody = document.getElementById('sb-body');
+  const sbTitle = document.getElementById('sb-title');
+  const sbBody  = document.getElementById('sb-body');
 
-    // Hover effect for clickable nodes
-    cy.on('mouseover', 'node', (e) => {
-      const n = e.target;
-      if (n.data('url')) {
-        n.addClass('hovered');
-        container.style.cursor = 'pointer';
-      }
-    });
+  function openSidebarWith(html, title) {
+    sbTitle.textContent = title || "Details";
+    sbBody.innerHTML = html;                     // allow rich markup
+    sidebar.style.display = 'block';
+  }
 
-    cy.on('mouseout', 'node', (e) => {
-      const n = e.target;
-      if (n.data('url')) {
-        n.removeClass('hovered');
-        container.style.cursor = 'default';
-      }
-    });
+  cy.on('tap', 'node', async (e) => {
+    const n = e.target;
+    const url = n.data('url');
+    const key = n.data('key') || n.id();
 
-    // Click handler — navigate if URL exists, otherwise show sidebar
-    cy.on('tap', 'node', (e) => {
-      const n = e.target;
-      const url = n.data('url');
-      if (url) {
-        window.location.href = url;  // navigates to topic page
-        return;
-      }
-      sbTitle.textContent = n.data('label') || 'Details';
-      sbBody.textContent = n.data('description') || 'No details yet.';
-      sidebar.style.display = 'block';
-    });
+    if (url) { window.location.href = url; return; }
+
+    try {
+      const res = await fetch(`/roadmap/node/${key}/sidebar/`, { headers: { "X-Requested-With": "fetch" }});
+      const html = await res.text();
+      openSidebarWith(html, n.data('label'));
+    } catch (err) {
+      openSidebarWith("<p style='color:#b91c1c;'>Failed to load details.</p>", n.data('label'));
+    }
+  });
 
     cy.ready(() => cy.fit());
   }

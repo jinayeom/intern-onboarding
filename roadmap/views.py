@@ -1,6 +1,8 @@
 import json
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Roadmap, Node
+from django.http import HttpResponse
+from django.template.loader import render_to_string, get_template
 
 def roadmap_index(request):
     """List all roadmaps (or redirect if you only have one)."""
@@ -12,35 +14,50 @@ def roadmap_index(request):
 
 def roadmap_detail(request, slug: str):
     roadmap = get_object_or_404(Roadmap, slug=slug)
+    nodes = roadmap.nodes.all().order_by("order")
 
-    qs = (Node.objects
-          .filter(roadmap=roadmap)
-          .select_related("parent")
-          .order_by("order", "id"))
+    # qs = (Node.objects
+    #       .filter(roadmap=roadmap)
+    #       .select_related("parent")
+    #       .order_by("order", "id"))
 
     elements = []
-    for n in qs:
+    for n in nodes:
         elements.append({
-            "data": {"id": str(n.id), "label": n.label, "url": n.url or ""},
-            "classes": n.category or ""
+            "data": {
+                "id": n.key,
+                "key": n.key,              # important — used to fetch sidebar HTML later
+                "label": n.label,
+                "description": n.description,
+                "url": n.url,
+            },
+            "classes": "link" if n.url else ""
         })
-    for n in qs:
+
+        # Add edges (connections) if this node has a parent
         if n.parent_id:
-            elements.append({"data": {"source": str(n.parent_id), "target": str(n.id)}})
+            elements.append({
+                "data": {
+                    "id": f"{n.parent.key}->{n.key}",
+                    "source": n.parent.key,
+                    "target": n.key,
+                }
+            })
 
-    empty = (len(elements) == 0)   # <-- flag for template
+    context = {
+        "roadmap": roadmap,
+        "elements": elements,
+        "node_count": nodes.count(),
+        "edge_count": len([e for e in elements if "source" in e["data"]]),
+    }
+    return render(request, "roadmap/detail.html", context)
 
-    node_count = sum(1 for e in elements if "label" in e.get("data", {}))
-    edge_count = sum(1 for e in elements if "source" in e.get("data", {}))
-
-    return render(
-        request,
-        "roadmap/detail.html",
-        {
-            "roadmap": roadmap,
-            "elements": elements,
-            "node_count": node_count,
-            "edge_count": edge_count,
-            "empty": empty,              # <-- pass flag
-        },
-    )
+def node_sidebar(request, key): 
+    node = get_object_or_404(Node, key=key)
+    specific = f"roadmap/nodes/{node.key}.html"
+    try: 
+        get_template(specific) 
+        html = render_to_string(specific, {"node":node})
+    except Exception: 
+        html = render_to_string("roadmaps/nodes/sidebar_fallback.html", {"node": node})
+    return HttpResponse(html)

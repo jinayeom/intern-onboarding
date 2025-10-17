@@ -1,0 +1,87 @@
+{# Sidebar fragment for a single node. Filename must match Node.key, e.g., bash-basics.html #}
+<section aria-labelledby="sb-heading" class="space-y-4">
+
+  <!-- Title (defaults to DB label if you want) -->
+  <header>
+    <h2 id="sb-heading" class="text-lg font-semibold leading-6">
+      {{ node.label|default:"Topic title" }}
+    </h2>
+    {% if node.category %}
+      <p class="text-xs text-gray-500 mt-1">Category: {{ node.get_category_display }}</p>
+    {% endif %}
+  </header>
+
+  <!-- Overview -->
+  <section>
+    <h3 class="font-medium mb-1">Overview</h3>
+    <p class="text-sm text-gray-700">
+      Briefly explain what the learner will get from this topic. Keep it to 2–3 sentences.
+    </p>
+  </section>
+
+  <!-- Quick facts -->
+  <section class="grid grid-cols-2 gap-2 text-sm">
+    <div>
+      <p class="text-gray-500">Estimated time</p>
+      <p>30–45 minutes</p>
+    </div>
+    <div>
+      <p class="text-gray-500">Difficulty</p>
+      <p>Beginner</p>
+    </div>
+  </section>
+
+  <!-- Prerequisites -->
+  <section>
+    <h3 class="font-medium mb-1">Prerequisites</h3>
+    <ul class="list-disc pl-5 text-sm text-gray-700">
+      <li>Know how to open a terminal</li>
+      <li>Basic file navigation</li>
+    </ul>
+  </section>
+
+  <!-- Learning goals -->
+  <section>
+    <h3 class="font-medium mb-1">Learning goals</h3>
+    <ul class="list-disc pl-5 text-sm text-gray-700">
+      <li>Explain the core idea in one sentence</li>
+      <li>Run two essential commands and read their output</li>
+      <li>Complete a short exercise that proves understanding</li>
+    </ul>
+  </section>
+
+  <!-- Guided steps -->
+  <section>
+    <h3 class="font-medium mb-1">Guided steps</h3>
+    <ol class="list-decimal pl-5 space-y-1 text-sm text-gray-800">
+      <li>Do a thing. Show the exact command or UI click.</li>
+      <li>Verify the result. What should they see.</li>
+      <li>Repeat for a second mini task.</li>
+    </ol>
+  </section>
+
+  <!-- Cheatsheet / Key commands -->
+  <section>
+    <h3 class="font-medium mb-1">Cheatsheet</h3>
+    <div class="rounded-lg border border-gray-200 p-3 text-sm font-mono overflow-x-auto">
+      <div><span class="text-gray-500"># Example</span></div>
+      <div>command --flag value</div>
+      <div>another-command | grep something</div>
+    </div>
+  </section>
+
+  <!-- Assessment / Mini quiz -->
+  <section>
+    <h3 class="font-medium mb-1">Check your understanding</h3>
+    <details class="rounded-lg border border-gray-200 p-3 text-sm">
+      <summary class="cursor-pointer select-none">Show questions</summary>
+      <ul class="list-disc pl-5 mt-2 space-y-1">
+        <li>Question 1 with a single correct answer.</li>
+        <li>Question 2 that asks for a command or definition.</li>
+      </ul>
+    </details>
+  </section>
+
+  <!-- Resources -->
+  <section>
+    <h3 class="f

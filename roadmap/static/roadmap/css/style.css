@@ -1,0 +1,90 @@
+/* ====== Roadmap page styles ====== */
+:root{
+    --ink:#0b1220;
+    --muted:#6b7280;
+    --border:#e5e7eb;
+    --node-fill:#E3F2FD;
+    --node-border:#2196F3;
+    --edge:#90CAF9;
+    --edge-target:#64B5F6;
+    --shadow:#90CAF9;
+    --danger:#b91c1c;
+    --surface:#fff;
+  }
+  
+  /* Layout */
+  #cy {
+    height: 70vh;
+    width: 100%;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+  }
+  
+  /* Buttons */
+  button {
+    padding: 6px 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: var(--surface);
+    cursor: pointer;
+  }
+  
+  /* Debug + errors */
+  #dbg {
+    font-size: 12px;
+    color: var(--muted);
+    margin: 6px 0 10px;
+  }
+  #err {
+    white-space: pre-wrap;
+    color: var(--danger);
+    font-size: 12px;
+    margin-top: 8px;
+  }
+  
+  /* Sidebar */
+  #sidebar {
+    display: none;
+    margin-top: 12px;
+    padding: 12px 24px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--surface);
+  }
+  #sb-title {
+    margin: 0 0 4px 0;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  #sb-body {
+    margin: 0;
+    color: #374151;
+  }
+  
+  .cy-node-base {
+    shape: round-rectangle;
+    background-color: var(--node-fill);
+    border-color: var(--node-border);
+    border-width: 2px;
+    label: data(label);
+    color: var(--ink);
+    font-size: 16px;
+    font-weight: 600;
+    text-valign: center;
+    text-halign: center;
+    width: 180px;
+    height: 60px;
+    shadow-blur: 8;
+    shadow-color: var(--shadow);
+    shadow-opacity: 0.6;
+  }
+  .cy-node-link {
+    border-color: #0EA5E9;
+    border-width: 3px;
+    background-color: #E0F2FE;
+  }
+  .cy-node-hovered {
+    shadow-blur: 16;
+    shadow-opacity: 0.9;
+  }
+  

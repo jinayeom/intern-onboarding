@@ -24,42 +24,176 @@
   </section>
 
   <section class="sidebar-block">
-    <h3>IP</h3>
+    <!-- Network Introduction -->
+    <h2>Networks</h2>
+    <p>
+      We'll start off by talking about Networks. Put it simply, networks are connected things! Just like you network with 
+      professionals in your field, a network can be formed between any 2+ entities. In the computing sense, it network 
+      is a key term for devices that are connected together.
+    </p>
+    <p>
+      There are primarily two main types of networks: <strong>Private Networks</strong> and <strong>Public Networks</strong>.
+    </p>
     <ul>
-      <li>Basic understanding of computer networks</li>
-      <li>Familiarity with IP addresses</li>
+      <li><strong>Private Networks</strong>: small networks (eg home network, business network)</li>
+      <li><strong>Public Networks</strong>: connects private networks together (eg Internet)</li>
     </ul>
+    <h3>Identifying Devices on a Network</h3>
+    <p>
+      There are two main ways to identify a network: 
+    </p>
+    <ul>
+      <li>Internet Protocol (IP) Addresses</li>
+      <li>Media Access Control (MAC) Address</li>
+    </ul>
+
+    <!-- IP -->
+    <h2>IP Addresses</h2>
+    <p>
+      We'll start off by talking about <strong>Internet Protocol (IP) Addresses</strong>. IP Addresses are numericaal labels
+      assigned to devices on a network. The older format was <strong>IPv4</strong>, however, as we ran out of IP addresses 
+      with this format, we adopted the modern <strong>IPv6</strong> format. Below is a table that comparies the difference between 
+      IPv4 vs IPv6:
+    </p>
+    <img 
+      src="{%static 'roadmap/img/ipv4-vs-ipv6.png' %}"
+      alt="IPv4 vs IPv6 Comparison Table Diagram"
+    >
+    <p>
+      As with networks, IPs also have <strong>Public IP Addresses</strong> and <strong>Private IP Addresses</strong>.
+    </p>
+    <ul>
+      <li><strong>Public IP Addresses</strong>: used to identify devices on the Internet</li>
+      <li><strong>Private IP Addresses</strong>: used to identify devices amongst other devices within a private network</li>
+    </ul>
+
+    <!-- MAC -->
+    <h2>MAC Addresses</h2>
+    <p>
+      <strong>Media Access Control (MAC) Addresses</strong> are unique identifiers for a device. Devices on a network 
+      have a physical network interface (eg microchip) on its motherboard. Below are some important characteristics:
+    </p>
+    <ul>
+      <li>It consists of a 12 character hexadecimal number, with each pair being split by a colon</li>
+      <li>First six characters are unique identifiers for the company that manufactured it</li>
+      <li>Last six characters are unique to the device. </li>
+    </ul>
+    <img 
+      src="{% static 'roadmap/img/mac-address.png' %}"
+      alt="Mac Address Anatomy"
+    >
+
+    <!-- Router -->
+     <h2>Router</h2>
+     <p>
+      <strong>Routers</strong> are devices that connects your local private network to the internet (public network). It is essentially 
+      a dispatcher for your local devices: it decides where data should go (eg from device to device or device to internet). 
+      The router has <strong>two IPs</strong>:
+     </p>
+     <ul> 
+      <li><strong>Private IP</strong>: facing local devices </li>
+      <li><strong>Public IP</strong>: facing internet </li>
+    </ul>
+
+    <h3>Network Address Translation (NAT)</h3>
+    <p>NAT is a protocol that runs inside your router, and manages multiple devices, allowing these devices to share one, singular
+      public IP address. For instance:
+    </p>
+    <ul>
+      
+      <li>Your Phone IP: 123.456.8.9</li>
+      <li>Your Laptop IP: 239.348.49.10</li>
+      <li>Your Tablet IP: 289.327.29.28</li>
+    </ul>
+    <p>      
+      But as all of these go through your router's NAT protocol, they will appear to the internet with the same  
+      <strong>public IP: 203.19.192.10</strong>.
+    </p>
+
+    <!-- ARP -->
+    <h3>Address Resolution Protocol (ARP)</h3>
+    <p>The Address Resolution Protocol (ARP) is what allows your local devices on your private network to recognize the router in
+      that local netork. Although your laptop knows the private IP address of your router, in order to send <strong>data</strong>, 
+      the laptop needs to locate the router via the router's <strong>MAC address</strong>. This protocol is called the ARP.
+    </p>
   </section>
 
-
   <section class="sidebar-block">
-    <h3>Guided steps</h3>
+    <!-- Putting All Concepts Together -->
+    <h2>Putting All Concepts Together</h2>
+    <p>
+      Now, we'll put all of these concepts into play with an example. 
+    </p>
+
+    <h3>Step 1: Local Network Communication (Laptop -> Router)</h3>
     <ol>
-      <li>Use <code>ping google.com</code> to test connectivity.</li>
-      <li>Run <code>traceroute google.com</code> to trace packet hops.</li>
-      <li>Observe TCP connections with <code>netstat -an</code>.</li>
+      <li>
+        Your laptop needs to send data. It only knows the router's <strong>private IP</strong> (eg 158.283.12.92), not its MAC address. In order for
+        your laptop to send data, it must locate your router via its <strong>MAC address</strong>
+      </li>
+      <li>Your laptop conducts an <strong>ARP broadcast</strong>; basically broadcasts to all the devices on its local network
+      "Who has 158.283.12.92?"
+      </li>
+      <li>The router identifies itself directly to your laptop by responding with its <strong>MAC Address</strong>.</li>
+      <li>Your laptop now sends data to your router via its MAC Address.</li>
     </ol>
-  </section>
 
-  <section class="sidebar-block">
-    <h3>Cheatsheet</h3>
-    <div class="cheatsheet">
-      <div># Show routing table</div>
-      <div>netstat -rn</div>
-      <div># Trace path to host</div>
-      <div>traceroute example.com</div>
-      <div># View open ports</div>
-      <div>lsof -iTCP -sTCP:LISTEN</div>
-    </div>
+    <h3>Step 2: Router Conducts NAT (Network Address Translation) </h3>
+    <ol>
+      <li>The router receives the data from your laptop.</li>
+      <li>The router uses the NAT protocol to replacing your laptop's private IP with the router's public IP address (eg 203.19.192.10)</li>
+    </ol>
+    
+    <h3>Step 3: Router Sends Data to Internet</h3>
+    <ol>
+      <li>Your router sends the data to the Internet to the destination server.</li>
+      <li>Servers on the internet only see your <strong>public IP</strong>, never the private IPs.</li>
+    </ol>
+
   </section>
 
   <section class="sidebar-block">
     <h3>Check your understanding</h3>
+    <!-- Question 1 -->
     <details>
-      <summary>Show questions</summary>
+      <summary>What is the old and modern IP formats?</summary>
       <ul>
-        <li>What’s the purpose of TCP in the TCP/IP model?</li>
-        <li>What command shows a route a packet takes to a destination?</li>
+        <li>IPv4 (old)</li>
+        <li>IPv6 (modern)</li>
+      </ul>
+    </details>
+    <!-- Question 2 -->
+    <details>
+      <summary>What are the two types of IP addresses?</summary>
+        <ul>
+          <li>Public IP - used to identify devices on a public network (eg Internet)</li>
+          <li>Private IP - used to identify devices on the same private, local network (eg your home network)</li>
+        </ul>
+    </details>
+    <!-- Question 3 -->
+    <details>
+      <summary>What is a MAC Address and what is its purpose? </summary>
+        <ul>
+          <li>MAC Address - is essentially your device's physical address on a local network</li>
+          <li>It is used to deliver data from a device to another device on the same network</li>
+        </ul>
+    </details>
+    <!-- Question 4 -->
+    <details>
+      <summary>How is information sent from your laptop to the internet?</summary>
+      <ol>
+        <li>Your laptop uses ARP broadcast to locate the router in its local network with a corresponding private IP</li>
+        <li>The router responds to the laptop's broadcast by directly sending its MAC Address</li>
+        <li>Your laptop uses this MAC Address to send data to the router</li>
+        <li>The router then runs this data through NAT to assign its public IP to replace the laptop's private IP </li>
+        <li>The router sends data to the desintation server on the Internet</li>
+      </ol>
+    </details>
+    <!-- Question 5 -->
+    <details>
+      <summary>Internet servers can access your laptop's private IP address directly. True or False?</summary>
+      <ul>
+        <li>No, your laptop will present data with your router's public IP</li>
       </ul>
     </details>
   </section>
@@ -71,7 +205,7 @@
         <li><a href="{{ node.url }}" target="_blank" rel="noopener">Primary learning resource</a></li>
       {% endif %}
       <li><a href="https://www.cloudflare.com/learning/ddos/glossary/tcp-ip/" target="_blank">Cloudflare TCP/IP Overview ↗</a></li>
-      <li><a href="https://computer.howstuffworks.com/internet/basics/internet.htm" target="_blank">How the Internet Works</a></li>
+      <li><a href="https://tryhackme.com/room/whatisnetworking" target="_blank">What is Networking?</a></li>
     </ul>
   </section>
 

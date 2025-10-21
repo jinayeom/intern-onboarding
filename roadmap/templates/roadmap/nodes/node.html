@@ -236,45 +236,55 @@
     <h3>Check your understanding</h3>
     <!-- Question 1 -->
     <details>
-      <summary>What is the old and modern IP formats?</summary>
-      <ul>
-        <li>IPv4 (old)</li>
-        <li>IPv6 (modern)</li>
-      </ul>
+      <summary>What is the main difference between running JavaScript in a browser and in Node.js?</summary>
+      <p>
+        Running JavaScript in <strong>Node.js</strong> means executing code on the server side (back end), outside of a browser.
+        Node provides access to backend tools (eg filesystem, network, and OS) through modules. 
+        Running JavaScript in a <strong>browser</strong> means executing code on the client side, inside a web page. The browser provides APIs for the 
+        <code class="inline-code">document</code> (DOM), <code class="inline-code">window</code>, and user interaction. However, it cannot access your 
+        computer's files or system directly.  
+      </p>
     </details>
     <!-- Question 2 -->
     <details>
-      <summary>What are the two types of IP addresses?</summary>
+      <summary>Why does <code class="inline-code">window</code> exist in a browser but not in Node.js?</summary>
         <ul>
-          <li>Public IP - used to identify devices on a public network (eg Internet)</li>
-          <li>Private IP - used to identify devices on the same private, local network (eg your home network)</li>
+          <li><code class="inline-code">window</code> is a <strong>global object</strong> for browsers; it represents the browser window or tab</li>
+          <li>Node.js does not have a browser, thus it does not get a <code class="inline-code">window</code></li>
         </ul>
     </details>
     <!-- Question 3 -->
     <details>
-      <summary>What is a MAC Address and what is its purpose? </summary>
+      <summary>What is the Node.js equivalent of <code class="inline-code">window</code> for browsers? </summary>
         <ul>
-          <li>MAC Address - is essentially your device's physical address on a local network</li>
-          <li>It is used to deliver data from a device to another device on the same network</li>
+            <li><code class="inline-code">global</code> is the <strong>global object</strong> of Node.js</li>
+            <li><code class="inline-code">window</code> is the <strong>global object</strong> of browsers</li>
         </ul>
     </details>
     <!-- Question 4 -->
     <details>
-      <summary>How is information sent from your laptop to the internet?</summary>
-      <ol>
-        <li>Your laptop uses ARP broadcast to locate the router in its local network with a corresponding private IP</li>
-        <li>The router responds to the laptop's broadcast by directly sending its MAC Address</li>
-        <li>Your laptop uses this MAC Address to send data to the router</li>
-        <li>The router then runs this data through NAT to assign its public IP to replace the laptop's private IP </li>
-        <li>The router sends data to the desintation server on the Internet</li>
-      </ol>
+      <summary>If you try to run this in Node: <code class="inline-code">console.log(window.location.href);</code>, what happens?</summary>
+      <ul>
+        <li><code class="inline-code">window</code> is a global object for browsers, NOT Node.js</li>
+        <li>Thus, thi will return a <code class="inline-code">ReferenceError: window is not defined</code></li>
+      </ul>
     </details>
     <!-- Question 5 -->
     <details>
-      <summary>Internet servers can access your laptop's private IP address directly. True or False?</summary>
-      <ul>
-        <li>No, your laptop will present data with your router's public IP</li>
-      </ul>
+      <summary>Explain the purpose of this line in Node.js: <code class="inline-code">let http = require('http');</code>?</summary>
+      <ol>
+        <li><code class="inline-code">require</code> is a way to import a node, in this case Node's built-in HTTP module</li>
+        <li>This provides the functionality for creating and handling HTTP servers and clients</li>
+        <li>Assigning this functionality to <code class="inline-code">http</code> does not mean the server has been activated yet</li>
+        <li>The following function needs to be ran in order to activate the HTTP server:</li>
+        <pre><code>
+            let http = require('http'); 
+            http.createServer(function (req, res) {
+                res.writeHead(200, {'Content-Type': 'text/html'});
+                res.end('Hello World!');
+            }).listen(8080);
+        </code></pre>
+      </ol>
     </details>
   </section>
 
@@ -286,6 +296,7 @@
       {% endif %}
       <li><a href="https://www.w3schools.com/nodejs/default.asp" target="_blank">Node.js</a></li>
       <li><a href="https://www.w3schools.com/nodejs/nodejs_vs_browser.asp" target="_blank">Node.js vs Browser</a></li>
+      <li><a href="https://github.com/jsdom/jsdom" target="_blank">JSDOM</a></li>
     </ul>
   </section>
 

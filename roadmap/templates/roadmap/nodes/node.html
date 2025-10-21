@@ -32,7 +32,7 @@
     <!-- Node.js Introduction -->
     <h2>Node.js</h2>
     <p>
-      Since we briefly introduced Node.js as a JavaScript runtime environment for the <strong>server side (backend)</strong>, let's look at some of its characteristics.
+      Since we briefly introduced Node.js as a JavaScript runtime environment for the <strong>server side (back end)</strong>, let's look at some of its characteristics.
     </p>
 
     <ul>
@@ -81,107 +81,156 @@
     <!-- Browser -->
     <h2>Browsers</h2>
     <p>
-      In addition to Node.js, another JavaScript environment is browser. 
+      In addition to Node.js, another JavaScript environment is browser for the <strong>client side (front end)</strong>. 
+      It includes: 
+    </p>
+    <ul>
+        <li>JavaScript engine to execute JS code</li>
+        <li>Browser-specific APIs such as:</li>
+        <ul>
+            <li><code class="inline-code">window</code> - browser window/tab</li>
+            <li><code class="inline-code">document</code> - HTML page (DOM)</li>
+            <li><code class="inline-code">fetch()</code> - makes HTTP request</li>
+            <li><code class="inline-code">localStorage</code> - stores data locally</li>
+        </ul>
+    </ul>
+
+    <!-- Node.js vs Browser -->
+    <h2>Node.js vs Browsers</h2>
+    <p>
+        Both Node.js and browsers are runtime environments for executive JavaScript. They do differ, and can affect how you write your unit tests 
+        for the front end. 
     </p>
     <p>
-        Browser is a JavaScript runtime environment for the 
+        Running JavaScript in <strong>Node.js</strong> means executing code on the <strong>server side</strong> (back end), outside of a browser. 
+        Node provides access to backend tools like the filesystem, network, and OS through modules such as fs and http. 
     </p>
+    <p>
+        Running JavaScript in a <strong>browser</strong> means executing code on the <strong>client side</strong> (front end), inside a web page. The
+        browser provides APIs for the DOM, <code class="inline-code">window</code>, and user interaction, but cannot access your computer's files or 
+        systems directly. 
+    </p>
+    <p>Below is a table that summarizes the main difference between the two JavaScript environments:</p>
     <img 
-      src="{%static 'roadmap/img/ipv4-vs-ipv6.png' %}"
-      alt="IPv4 vs IPv6 Comparison Table Diagram"
+      src="{%static 'roadmap/img/node-vs-browser.png' %}"
+      alt="Node.js vs Browser Comparison Table"
     >
-    <p>
-      As with networks, IPs also have <strong>Public IP Addresses</strong> and <strong>Private IP Addresses</strong>.
-    </p>
-    <ul>
-      <li><strong>Public IP Addresses</strong>: used to identify devices on the Internet</li>
-      <li><strong>Private IP Addresses</strong>: used to identify devices amongst other devices within a private network</li>
-    </ul>
-
-    <!-- MAC -->
-    <h2>MAC Addresses</h2>
-    <p>
-      <strong>Media Access Control (MAC) Addresses</strong> are unique identifiers for a device. Devices on a network 
-      have a physical network interface (eg microchip) on its motherboard. Below are some important characteristics:
-    </p>
-    <ul>
-      <li>It consists of a 12 character hexadecimal number, with each pair being split by a colon</li>
-      <li>First six characters are unique identifiers for the company that manufactured it</li>
-      <li>Last six characters are unique to the device. </li>
-    </ul>
-    <img 
-      src="{% static 'roadmap/img/mac-address.png' %}"
-      alt="Mac Address Anatomy"
-    >
-
-    <!-- Router -->
-     <h2>Router</h2>
-     <p>
-      <strong>Routers</strong> are devices that connects your local private network to the internet (public network). It is essentially 
-      a dispatcher for your local devices: it decides where data should go (eg from device to device or device to internet). 
-      The router has <strong>two IPs</strong>:
-     </p>
-     <ul> 
-      <li><strong>Private IP</strong>: facing local devices </li>
-      <li><strong>Public IP</strong>: facing internet </li>
-    </ul>
-
-    <h3>Network Address Translation (NAT)</h3>
-    <p>NAT is a protocol that runs inside your router, and manages multiple devices, allowing these devices to share one, singular
-      public IP address. For instance:
-    </p>
-    <ul>
-      
-      <li>Your Phone IP: 123.456.8.9</li>
-      <li>Your Laptop IP: 239.348.49.10</li>
-      <li>Your Tablet IP: 289.327.29.28</li>
-    </ul>
-    <p>      
-      But as all of these go through your router's NAT protocol, they will appear to the internet with the same  
-      <strong>public IP: 203.19.192.10</strong>.
-    </p>
-
-    <!-- ARP -->
-    <h3>Address Resolution Protocol (ARP)</h3>
-    <p>The Address Resolution Protocol (ARP) is what allows your local devices on your private network to recognize the router in
-      that local netork. Although your laptop knows the private IP address of your router, in order to send <strong>data</strong>, 
-      the laptop needs to locate the router via the router's <strong>MAC address</strong>. This protocol is called the ARP.
-    </p>
-  </section>
-
-  <section class="sidebar-block">
-    <!-- Putting All Concepts Together -->
-    <h2>Putting All Concepts Together</h2>
-    <p>
-      Now, we'll put all of these concepts into play with an example. 
-    </p>
-
-    <h3>Step 1: Local Network Communication (Laptop -> Router)</h3>
-    <ol>
-      <li>
-        Your laptop needs to send data. It only knows the router's <strong>private IP</strong> (eg 158.283.12.92), not its MAC address. In order for
-        your laptop to send data, it must locate your router via its <strong>MAC address</strong>
-      </li>
-      <li>Your laptop conducts an <strong>ARP broadcast</strong>; basically broadcasts to all the devices on its local network
-      "Who has 158.283.12.92?"
-      </li>
-      <li>The router identifies itself directly to your laptop by responding with its <strong>MAC Address</strong>.</li>
-      <li>Your laptop now sends data to your router via its MAC Address.</li>
-    </ol>
-
-    <h3>Step 2: Router Conducts NAT (Network Address Translation) </h3>
-    <ol>
-      <li>The router receives the data from your laptop.</li>
-      <li>The router uses the NAT protocol to replacing your laptop's private IP with the router's public IP address (eg 203.19.192.10)</li>
-    </ol>
     
-    <h3>Step 3: Router Sends Data to Internet</h3>
+    <!-- Designing Unit Tests for browser dependent tests -->
+    <h2>Designing Unit Tests and Deciding to user Node.js vs Browser Environment</h2>
+    <p>
+      As an intern, some of your first few tickets will be to design unit tests for front end code for Laser.
+      Some of these functions may appear to require a browser environment (eg <code class="inline-code">getCookie()</code>)
+    </p>
+    <pre><code>
+    
+    /**
+    * Returns the value of a cookie based on the cookie name.
+    * From https://docs.djangoproject.com/en/3.2/ref/csrf/#ajax.
+    * @param {string} name - Name of cookie.
+    * @returns {*}
+    */
+    export function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== "") {
+            const cookies = document.cookie.split(";");
+            for (let i = 0; i &lt; cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === name + "=") {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    </code></pre>
+    <p>
+        This function expects to be run in a browser, where <code class="inline-code">document.cookie</code> is a real browser API that stores 
+        all cookies for the current webpage.
+    </p>
+    <p>
+        If we used <strong>JavaScript-based simulation of a web browser's DOM (JSDOM)</strong> in Jest to create a fake <code class="inline-code">document</code> 
+        to simulate the browser, this would have been straightforward. However, with the unit tests, they're usually written in one giant file with 
+        multiple other unit tests that do NOT require JSDOM. Thus, we cannot simply import this module as it will break the other tests previous 
+        interns have worked so hard to implement. So instead, we have to get creative. 
+    </p>
+    <p>
+        An alternative solution is to mock the exact data we need to test the <code class="inline-code">getCookie()</code> function. In essence, 
+        create a fake <code class="inline-code">document</code> object and attach it to the global scope in Node.js. To implement this, follow
+        the steps below
+    </p>
+    <h3>Manually Mocking Fake Document Object for non-JSDOM Tests</h3>
     <ol>
-      <li>Your router sends the data to the Internet to the destination server.</li>
-      <li>Servers on the internet only see your <strong>public IP</strong>, never the private IPs.</li>
+        <li>In your <code class="inline-code">describe("getCooke()"...)</code>function, create a variable <code class="inline-code">originalDocument</code>
+            that is assigned whatever <code class="inline-code">global.document</code>was before. In Jest where JSDOM was never imported, 
+            <code class="inline-code">global.document</code> will most likely be <code class="inline-code">undefined.</code>
+        </li>
+        <pre><code>
+        describe("getCookie()", () => {
+            const originalDocument = global.document; 
+        });
+        </code></pre>
+        <li>
+            Create an <code class="inline-code">afterEach()</code> function that resets the <code class="inline-code">global.document</code> back to 
+            <code class="inline-code">originalDocument</code>. Since <code class="inline-code">originalDocument</code> was technically 
+            <code class="inline-code">undefined</code>, <code class="inline-code">afterEach()</code> is essentially resetting the environment back to 
+            <code class="inline-code">undefined</code> after each test. This ensures that previous tests will not impact the mock data we are feeding 
+            future tests. This may seem pointless right now, but it is best practice to prevent opportunities of mix ups later on.
+        </li>
+        <pre><code>
+        afterEach(() => {
+            global.document = originalDocument;
+        });
+        </code></pre>
+        <li>
+            In your tests, reset the <code class="inline-code">global.document</code> to take on the mock parameters you need to test your function. In our example, 
+            we are trying to test <code class="inline-code">getCookie()</code> function, which takes in a cookie name as a parameter. Thus, we must mock a fake cookie 
+            name to feed into our function. By doing so, you are essentially telling Node to pretend that there is a <code class="inline-code">document</code> object 
+            with a <code class="inline-code">cookie</code> property equal to whatever you set it as. 
+        </li>
+        <pre><code>
+        test("returns cookie value for valid cookie name that exists in the cookie document", 
+            () => {
+            global.document = {
+                cookie: "theme=dark; sessionid=abc"
+            };
+            const name = "theme";
+            expect(getCookie(name)).toBe("dark");
+        });
+        </code></pre>
+        <li>
+            Since you implemented the <code class="inline-code">afterEach()</code> function, after this test is done running, <code class="inline-code">global.document</code>
+            will be reset to <code class="inline-code">undefined</code>, thus preventing this previous test from impacting the mock <code class="inline-code">document</code>
+            for future tests.
+        </li>
+        <li>
+            Add more tests to provide sufficient coverage.
+        </li>
     </ol>
+    <p>
+        This is what your entire test suite should look like after you've implemented these steps:
+    </p>
+    <pre><code>
+    describe("getCookie()", () => {
+        const originalDocument = global.document;
 
-  </section>
+        afterEach(() => {
+            global.document = originalDocument;
+        });
+
+        test("returns cookie value for valid cookie name that exists in the cookie document", 
+        () => {
+            global.document = {
+                cookie: "theme=dark; sessionid=abc";
+            };
+            const name = "theme";
+            expect(getCookie(name)).toBe("dark");
+        });
+    });
+    </code></pre>
+
+</section>
 
   <section class="sidebar-block">
     <h3>Check your understanding</h3>
@@ -235,8 +284,8 @@
       {% if node.url %}
         <li><a href="{{ node.url }}" target="_blank" rel="noopener">Primary learning resource</a></li>
       {% endif %}
-      <li><a href="https://www.cloudflare.com/learning/ddos/glossary/tcp-ip/" target="_blank">Cloudflare TCP/IP Overview ↗</a></li>
-      <li><a href="https://tryhackme.com/room/whatisnetworking" target="_blank">What is Networking?</a></li>
+      <li><a href="https://www.w3schools.com/nodejs/default.asp" target="_blank">Node.js</a></li>
+      <li><a href="https://www.w3schools.com/nodejs/nodejs_vs_browser.asp" target="_blank">Node.js vs Browser</a></li>
     </ul>
   </section>
 

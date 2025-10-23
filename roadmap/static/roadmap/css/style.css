@@ -49,7 +49,7 @@
     padding: 12px 24px;
     border: 1px solid var(--border);
     border-radius: 12px;
-    background: var(--surface);
+    background: white;
   }
   #sb-title {
     margin: 0 0 4px 0;
@@ -60,7 +60,13 @@
     margin: 0;
     color: #374151;
   }
-  
+  /* Sidebar container on node pages */
+  .sidebar-section {
+    background-color: white;
+    padding: 1rem;
+    border-radius: 0.5rem;
+  }
+
   .cy-node-base {
     shape: round-rectangle;
     background-color: var(--node-fill);
